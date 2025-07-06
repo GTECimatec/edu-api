@@ -60,3 +60,13 @@ app.get('/metrics', async (req, res) => {
 })
 
 app.listen(PORT, () => console.log(`EduAPI fake rodando em http://localhost:${PORT}`))
+
+
+// Rota insegura simulando uso do eval
+app.get('/calc', (req, res) => {
+    const expr = req.query.expr || '2+2';
+    // ⚠️ Inseguro: executa código arbitrário vindo da requisição
+    const result = eval(expr);
+    res.json({ result });
+});
+
